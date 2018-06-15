@@ -1,18 +1,16 @@
-
-
 <table class="table table-striped">
   <tr>
-    <th>Nom de l eleve</th>
+    <th>Nom du prof</th>
     <th>passions</th>
     <th>lien vers son profil</th>
 
   </tr>
  
-  <% @eles.each do |ele|%> 
+  <% @pros.each do |ele|%> 
     <tr>
       <td><%= ele.firstname %></td>
       <td><%= ele.passion1 %>, <%= ele.passion2 %>, <%= ele.passion3 %>, <%= ele.passion4 %></td>
-      <td><%= link_to "Voir son profil", ele_path(ele) %></td>
+      <td><%= link_to "Voir son profil", pro_path(ele) %></td>
 
     </tr>
   <% end %>

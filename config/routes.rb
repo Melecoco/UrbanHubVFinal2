@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   get "eles/index", to: "eles#index", as: "eles"
   get "eles/show/:id", to: "eles#show", as: "ele"
-  
+  get "pros/index", to: "pros#index", as: "pros"
+  get "eles/show/:id", to: "eles#show", as: "pro"
   
 end

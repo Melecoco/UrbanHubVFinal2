@@ -47,7 +47,6 @@
 
 
 <h1>Les événements auxquels <%=@ele.firstname%>  a participé </h1>
-<p> ce sera tous les eve auxquels il est invite/attendee et s il est present dans un event.apayerX.to_i.include? @ele.id , affiche le </p></br></br>
 
 <% if !@ele.eleattended_events.empty? %>
     <% @ele.eleattended_events.each do |event| %>
