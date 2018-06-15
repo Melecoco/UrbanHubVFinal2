@@ -101,9 +101,11 @@ class EventsController < ApplicationController
     @user = current_ele
     @pro = current_pro
 
-  
-    @idprof = @event.professor_id
-    @prof = Pro.find(@idprof)
+    if @event.professor_id == nil 
+    else 
+      @idprof = @event.professor_id
+      @prof = Pro.find(@idprof)
+    end
     
  
    
