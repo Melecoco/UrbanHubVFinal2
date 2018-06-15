@@ -1,11 +1,12 @@
 <div class="container">
-
-    <h1> Ses infos </h1>
-    <p> <%= @ele.firstname %> </p>
-    <p> <%= @ele.passion1 %>, <%= @ele.passion2 %>, <%= @ele.passion3 %>, <%= @ele.passion4 %> </p>
-    <p> Département: <%= @ele.departement %> </p>
-
-
+  <div class="row">
+    <h1 class="card-header"><%= @ele.firstname %></h1>
+        <div class="card-body">
+            <p class="card-text">Passions : <%= @ele.passion1 %>, <%= @ele.passion2 %>, <%= @ele.passion3 %>, <%= @ele.passion4 %> </p>
+            <p class="card-text">Ville : <%= @ele.ville %> </p>
+            <p class="card-text">Mail : <%= @ele.email %> </p>
+        </div>
+  </div>
 
 
     </br></br>

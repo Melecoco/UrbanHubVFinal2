@@ -2,127 +2,122 @@
 
     <p id="notice"><%= notice %></p>
 
-    <h1> <%= @event.name %> </h1>
-    <h3> <%= @event.discipline %> </h3>
-    </br></br>
+        <h1> <%= @event.name %> </h1>
+    
+        
+        <h3>Votre statut : </h3>
 
 
-    <% if @event.etat == "open" %>
-        <% if signed_in? == false %>
-            <p> Connectez-vous pour rejoindre levenement </p>
-        <% elsif pro_signed_in? %>
-            <% if @event.professor_id == nil %>
-                <p class="text-center">  <%= link_to "Rejoindre l'événement", { :controller => "events", :action => "subscribe"}, class: "btn btn-success" %> </p>
-            <% elsif @event.professor_id.to_s == current_pro.id.to_s %>
-                <p> Vous êtes professeur, deux jours avant l evenement, si le nombre d inscrit est suffisant, validez l event. 
-                </br> les élèves recevront un mail et pourront payer puis recevoir leur invitation </p>
-                <p class="text-center">  <%= link_to "Valider l'event", { :controller => "events", :action => "closingevent"}, class: "btn btn-success" %> </p>
+        <% if @event.etat == "open" %>
+            <% if signed_in? == false %>
+                <p> Connectez-vous pour rejoindre levenement </p>
+            <% elsif pro_signed_in? %>
+                <% if @event.professor_id == nil %>
+                    <p class="text-center">  <%= link_to "Rejoindre l'événement", { :controller => "events", :action => "subscribe"}, class: "btn btn-success" %> </p>
+                <% elsif @event.professor_id.to_s == current_pro.id.to_s %>
+                    <p> Vous êtes professeur, deux jours avant l evenement, si le nombre d inscrit est suffisant, validez l event. 
+                    </br> les élèves recevront un mail et pourront payer puis recevoir leur invitation </p>
+                    <p class="text-center">  <%= link_to "Valider l'event", { :controller => "events", :action => "closingevent"}, class: "btn btn-success" %> </p>
+                <% else %>
+                    <p> Le post de prof est occupé par : <%=@professor.email%></p>
+                    
+                <% end %>
+
+
+            <% elsif @event.asubscribe.to_s.include? current_ele.id.to_s %>
+                <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+            <% elsif @event.asubscribe2.to_s.include? current_ele.id.to_s %>
+                <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+            <% elsif @event.asubscribe3.to_s.include? current_ele.id.to_s %>
+                <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+            <% elsif @event.asubscribe4.to_s.include? current_ele.id.to_s %>
+                <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+            <% elsif @event.asubscribe5.to_s.include? current_ele.id.to_s %>
+                <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+            <% elsif @event.asubscribe6.to_s.include? current_ele.id.to_s %>
+                <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+            <% elsif @event.asubscribe7.to_s.include? current_ele.id.to_s %>
+                <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+            <% elsif @event.asubscribe8.to_s.include? current_ele.id.to_s %>
+                <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+            <% elsif @event.asubscribe9.to_s.include? current_ele.id.to_s %>
+                <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+            <% elsif @event.asubscribe10.to_s.include? current_ele.id.to_s %>
+                <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+
+            <% elsif ele_signed_in? %>
+                <% if @event.etat == "open" %>
+                    <p class="text-center">  <%= link_to "Rejoindre l'événement", { :controller => "events", :action => "subscribe"}, class: "btn btn-success" %> </p>
+                <% else %>
+                    <p class="text-center">  <%= link_to "Vous inscrire, payer et recevoir votre pass", { :controller => "events", :action => "subscribeandpay"}, class: "btn btn-success" %> </p>
+                    <p> BOUTON PAYER ET SUBSCRIBE </p>
+                <% end %>
             <% else %>
-                <p> Le post de prof est occupé par : <%=@professor.email%></p>
-                
             <% end %>
 
-
-        <% elsif @event.asubscribe.to_s.include? current_ele.id.to_s %>
-            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-        <% elsif @event.asubscribe2.to_s.include? current_ele.id.to_s %>
-            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-        <% elsif @event.asubscribe3.to_s.include? current_ele.id.to_s %>
-            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-        <% elsif @event.asubscribe4.to_s.include? current_ele.id.to_s %>
-            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-        <% elsif @event.asubscribe5.to_s.include? current_ele.id.to_s %>
-            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-        <% elsif @event.asubscribe6.to_s.include? current_ele.id.to_s %>
-            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-        <% elsif @event.asubscribe7.to_s.include? current_ele.id.to_s %>
-            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-        <% elsif @event.asubscribe8.to_s.include? current_ele.id.to_s %>
-            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-        <% elsif @event.asubscribe9.to_s.include? current_ele.id.to_s %>
-            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-        <% elsif @event.asubscribe10.to_s.include? current_ele.id.to_s %>
-            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-
-        <% elsif ele_signed_in? %>
-            <% if @event.etat == "open" %>
-                <p class="text-center">  <%= link_to "Rejoindre l'événement", { :controller => "events", :action => "subscribe"}, class: "btn btn-success" %> </p>
-            <% else %>
-                <p class="text-center">  <%= link_to "Vous inscrire, payer et recevoir votre pass", { :controller => "events", :action => "subscribeandpay"}, class: "btn btn-success" %> </p>
-                <p> BOUTON PAYER ET SUBSCRIBE </p>
+        <% elsif @event.etat == "close" %>
+        
+            <% if ele_signed_in? %>
+                <% if @event.asubscribe.to_s.include? current_ele.id.to_s %>
+                    <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>           
+                <% elsif @event.asubscribe2.to_s.include? current_ele.id.to_s %>
+                    <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
+                <% elsif @event.asubscribe3.to_s.include? current_ele.id.to_s %>
+                    <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p> 
+                <% elsif @event.asubscribe4.to_s.include? current_ele.id.to_s %>
+                    <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
+                <% elsif @event.asubscribe5.to_s.include? current_ele.id.to_s %>
+                    <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
+                <% elsif @event.asubscribe6.to_s.include? current_ele.id.to_s %>
+                    <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
+                <% elsif @event.asubscribe7.to_s.include? current_ele.id.to_s %>
+                    <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
+                <% elsif @event.asubscribe8.to_s.include? current_ele.id.to_s %>
+                    <p class="text-center">  <%= link_to ", payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
+                <% elsif @event.asubscribe9.to_s.include? current_ele.id.to_s %>
+                    <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
+                <% elsif @event.asubscribe10.to_s.include? current_ele.id.to_s %>
+                    <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>        
+                <% elsif @event.asubscribe10 == nil %>
+                    <p class="text-center">  <%= link_to "S'inscrire, payer et recevoir votre pass", { :controller => "events", :action => "subscribeandpay"}, class: "btn btn-success" %> </p>        
+                <% else %>
+                    <p> Cet événement est complet </p>
+                <% end %>
+            <% else  %> 
             <% end %>
+
         <% else %>
         <% end %>
 
-    <% elsif @event.etat == "close" %>
+
+        <h3>Discipline :</h3>
+        <strong> <%= @event.discipline %> </strong> </br></br>
+        <h3>Gérant événement :</h3>
+        <p>Nom: <%=@creator.firstname%>, </br>Email: <%=@creator.email%> </p>
+        </br>
+        <h3>Professeur :</h3>
+        <% if @event.professeur == "present" %>
+            <p>Nom: <%=@professor.firstname%>, </br> Email: <%=@professor.email%> </br> Disciplines préférées: <%=@professor.passion1%>, <%=@professor.passion2%></p>
+        <% else %>
+        <p>Pas encore de prof, invitez-en ci-dessous</p>
+        <% end %> </br></br>
     
-        <% if ele_signed_in? %>
-            <% if @event.asubscribe.to_s.include? current_ele.id.to_s %>
-            <%= form_tag pay_path do %>
-                <article>
-                <% if flash[:error].present? %>
-                    <div id="error_explanation">
-                    <p><%= flash[:error] %></p>
-                    </div>
-                <% end %>
-                <label class="amount">
-                    <span>Amount: $5.00</span>
-                </label>
-                </article>
-            
-                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                        data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                        data-description="A month's subscription"
-                        data-amount="500"
-                        data-locale="auto"
-                        data-label="Confirmer payement et recevoir pass"></script>
-            
-                
-                
-                
-            <% end %>
-        
-            <% elsif @event.asubscribe2.to_s.include? current_ele.id.to_s %>
-                <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
-            <% elsif @event.asubscribe3.to_s.include? current_ele.id.to_s %>
-                <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p> 
-            <% elsif @event.asubscribe4.to_s.include? current_ele.id.to_s %>
-                <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
-            <% elsif @event.asubscribe5.to_s.include? current_ele.id.to_s %>
-                <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
-            <% elsif @event.asubscribe6.to_s.include? current_ele.id.to_s %>
-                <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
-            <% elsif @event.asubscribe7.to_s.include? current_ele.id.to_s %>
-                <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
-            <% elsif @event.asubscribe8.to_s.include? current_ele.id.to_s %>
-                <p class="text-center">  <%= link_to ", payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
-            <% elsif @event.asubscribe9.to_s.include? current_ele.id.to_s %>
-                <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
-            <% elsif @event.asubscribe10.to_s.include? current_ele.id.to_s %>
-                <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>        
-            <% elsif @event.asubscribe10 == nil %>
-                <p class="text-center">  <%= link_to "S'inscrire, payer et recevoir votre pass", { :controller => "events", :action => "subscribeandpay"}, class: "btn btn-success" %> </p>        
-            <% else %>
-                <p> Cet événement est complet </p>
-            <% end %>
-        <% else  %> 
-        <% end %>
 
-    <% else %>
-    <% end %>
-    </br></br>
 
-    <h2>Gérant événement</h2>
-    <p><%=@creator.firstname%></p>
-    <p><%=@creator.email%></p></br></br>
-    <h1>professeur</h1>
-    <% if @event.professeur == "present" %>
-        <p>===============</p>
-        <p><%=@professor.firstname%></p></br></br>
-        <p><%=@professor.email%></p>
-    <% else %>
-    <p>Pas encore de prof, invitez-en ci-dessous</p>
-    <% end %> </br></br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -132,11 +127,15 @@
         <tr>
             <th>Nom</th>
             <th>Email</th>
+            <th>Disciplines préférées</th>
+            <th>Voir le profil</th>
         </tr>
     <% @event.proinvitatees.each do |invitatee| %> 
         <tr>
             <td> <%= invitatee.firstname %> </td>
             <td> <%= invitatee.email %> </td>
+            <td> <%= invitatee.passion1 %>, <%= invitatee.passion2 %> </td>
+            <td> <%= link_to 'Voir son profil', pro_path(invitatee) %> </td>
         </tr>
     <% end %> 
     </table></br>
@@ -151,8 +150,8 @@
                 <tr>
                     <th>Nom</th>
                     <th>Email</th>
-                    <th></th>
-                    <th></th>
+                    <th>Disciplines préférées</th>
+                    <th>Inviter ce professeur</th>
                 </tr>
 
 
@@ -161,7 +160,7 @@
                     <tr>
                         <td><%= pro.firstname %></td>
                         <td><%= pro.email %></td>
-                        
+                        <td> <%= pro.passion1 %>, <%= pro.passion2 %> </td>
                         <td><%= link_to "Inviter ce professeur", { :controller => "events", :action => "addprotoinvitation", :pro_id => pro.id, :test => @event.id}%></td>
                     </tr>
                     <% end %>
@@ -514,9 +513,6 @@
             <p> Connectez-vous pour ajouter des participants </p>
     <% end %></br></br>
 
-
-
-    #   add_pro à faire (controller, vues, routes,   pareil pour subscribe (vues et routes))
 
 
 

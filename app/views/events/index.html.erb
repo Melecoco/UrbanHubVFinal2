@@ -1,44 +1,23 @@
 <p id="notice"><%= notice %></p>
+<div class="container">
+    <h1>Events</h1>
 
-<h1>Events</h1>
-
-
-
-<br>
-
-<%= link_to 'New Event', new_event_path %>
+    <br>
 
 
-<table class="table table-striped">
-  <tr>
-    <th>Nom de l'événement</th>
-    <th>discipline</th>
-    <th>Date de l'événement</th>
-    <th>ville de l'événement</th>
-    <th>departement de l'événement</th>
-    <th>Description de l'événement</th>
-    <th>Créé par</th>
-    <th>Nombre de participants</th>
-    <th>prix de l'événement</th>
-    <th>lien vers l'evenement</th>
-
-  </tr>
- 
-  <% @events.each do |event|%> 
-    <tr>
-      <td><%= event.name %></td>
-      <td><%= event.discipline %></td>
-      <td><%= event.date %></td>
-      <td><%= event.ville %></td>
-      <td><%= event.departement %></td>           
-      <td><%= event.description %></td>
-
-      <td><%= event.eleattendees.count %></td>
-      <td><%= event.proinvitatees.count %></td>
-      <td><%= event.prix %></td>
-      <td><%= link_to "Voir l'événement", event_path(event) %></td>
-
-    </tr>
-  <% end %>
-
-</table>
+  <div class="row">
+    <% @events.each do |event|%>
+        <div class="col-lg-4 mb-4">
+        <div class="card h-100">
+            <h4 class="card-header"><%= event.name %></h4>
+                <div class="card-body">
+                    <p class="card-text">Discipline : <%= event.discipline %> </br>Description : <%= event.description %></br> Date: <%= event.date %></br> Description : <%= event.description %> </br> Nombre de personnes interessées: <%= event.eleattendees.count %> </p>
+                </div>
+                <div class="card-footer">
+                <p> <%= link_to 'Voir l evenement', event_path(event) %> </p>
+                </div>
+        </div>
+        </div>
+    <% end %>
+  </div>
+</div>
