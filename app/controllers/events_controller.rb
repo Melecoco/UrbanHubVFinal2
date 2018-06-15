@@ -101,11 +101,7 @@ class EventsController < ApplicationController
     @user = current_ele
     @pro = current_pro
 
-    if @event.professor_id == nil 
-    else 
-      @idprof = @event.professor_id
-      @prof = Pro.find(@idprof)
-    end
+ 
     
  
    
@@ -117,6 +113,7 @@ class EventsController < ApplicationController
       SubscribeToEventMailer.send_mail_after_subscribing(@user, @event).deliver
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
+  
     elsif
       ele_signed_in? && @event.asubscribe2 == nil
       
@@ -125,9 +122,7 @@ class EventsController < ApplicationController
       SubscribeToEventMailer.send_mail_after_subscribing(@user, @event).deliver
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
-      if @event.professor_id != nil
-        SendMailAfterFiveMailer.send_five(@prof, @event).deliver
-      end
+    
     elsif
       ele_signed_in? && @event.asubscribe3 == nil
       
@@ -135,9 +130,7 @@ class EventsController < ApplicationController
       @event.eleattendees << current_ele
       SubscribeToEventMailer.send_mail_after_subscribing(@user, @event).deliver
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
-      if @event.professor_id != nil
-        SendMailAfterFiveMailer.send_five(@prof, @event).deliver
-      end
+
       redirect_to "/"
     elsif
       ele_signed_in? && @event.asubscribe4 == nil
@@ -145,9 +138,7 @@ class EventsController < ApplicationController
       @event.update_columns(asubscribe4: current_ele.id)
       @event.eleattendees << current_ele
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
-      if @event.professor_id != nil
-        SendMailAfterFiveMailer.send_five(@prof, @event).deliver
-      end
+  
       redirect_to "/"
       
     elsif
@@ -158,6 +149,10 @@ class EventsController < ApplicationController
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
       if @event.professor_id != nil
+        @idprof = @event.professor_id
+        @prof = Pro.find(@idprof)
+    
+      
         SendMailAfterFiveMailer.send_five(@prof, @event).deliver
       end
     elsif
@@ -165,7 +160,7 @@ class EventsController < ApplicationController
       SubscribeToEventMailer.send_mail_after_subscribing(@user, @event).deliver
       @event.update_columns(asubscribe6: current_ele.id)
       @event.eleattendees << current_ele
-      SendMailAfterFiveMailer.send_five(@event.professor_id.email, @event).deliver
+
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
     elsif
@@ -175,17 +170,13 @@ class EventsController < ApplicationController
       @event.eleattendees << current_ele
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
-      if @event.professor_id != nil
-        SendMailAfterFiveMailer.send_five(@prof, @event).deliver
-      end
+  
     elsif
       ele_signed_in? && @event.asubscribe8 == nil
       SubscribeToEventMailer.send_mail_after_subscribing(@user, @event).deliver
       @event.update_columns(asubscribe8: current_ele.id)
       @event.eleattendees << 
-      if @event.professor_id != nil
-        SendMailAfterFiveMailer.send_five(@prof, @event).deliver
-      end
+
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
     elsif
@@ -193,9 +184,6 @@ class EventsController < ApplicationController
       SubscribeToEventMailer.send_mail_after_subscribing(@user, @event).deliver
       @event.update_columns(asubscribe9: current_ele.id)
       @event.eleattendees << current_ele
-      if @event.professor_id != nil
-        SendMailAfterFiveMailer.send_five(@prof, @event).deliver
-      end
       
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
@@ -204,9 +192,7 @@ class EventsController < ApplicationController
       SubscribeToEventMailer.send_mail_after_subscribing(@user, @event).deliver
       @event.update_columns(asubscribe10: current_ele.id)
       @event.eleattendees << current_ele
-      if @event.professor_id != nil
-        SendMailAfterFiveMailer.send_five(@prof, @event).deliver
-      end
+  
       flash[:success] = "Vous participez à l'événement en tant qu'élève!" 
       redirect_to "/"
     elsif
