@@ -1,528 +1,531 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
 
-<h1> <%= @event.name %> </h1>
-<h3> <%= @event.discipline %> </h3>
-</br></br>
+    <p id="notice"><%= notice %></p>
+
+    <h1> <%= @event.name %> </h1>
+    <h3> <%= @event.discipline %> </h3>
+    </br></br>
 
 
-<% if @event.etat == "open" %>
-    <% if signed_in? == false %>
-        <p> Connectez-vous pour rejoindre levenement </p>
-    <% elsif pro_signed_in? %>
-        <% if @event.professor_id == nil %>
-            <p class="text-center">  <%= link_to "Rejoindre l'événement", { :controller => "events", :action => "subscribe"}, class: "btn btn-success" %> </p>
-        <% elsif @event.professor_id.to_s == current_pro.id.to_s %>
-            <p> Vous êtes professeur, deux jours avant l evenement, si le nombre d inscrit est suffisant, validez l event. 
-            </br> les élèves recevront un mail et pourront payer puis recevoir leur invitation </p>
-            <p class="text-center">  <%= link_to "Valider l'event", { :controller => "events", :action => "closingevent"}, class: "btn btn-success" %> </p>
+    <% if @event.etat == "open" %>
+        <% if signed_in? == false %>
+            <p> Connectez-vous pour rejoindre levenement </p>
+        <% elsif pro_signed_in? %>
+            <% if @event.professor_id == nil %>
+                <p class="text-center">  <%= link_to "Rejoindre l'événement", { :controller => "events", :action => "subscribe"}, class: "btn btn-success" %> </p>
+            <% elsif @event.professor_id.to_s == current_pro.id.to_s %>
+                <p> Vous êtes professeur, deux jours avant l evenement, si le nombre d inscrit est suffisant, validez l event. 
+                </br> les élèves recevront un mail et pourront payer puis recevoir leur invitation </p>
+                <p class="text-center">  <%= link_to "Valider l'event", { :controller => "events", :action => "closingevent"}, class: "btn btn-success" %> </p>
+            <% else %>
+                <p> Le post de prof est occupé par : <%=@professor.email%></p>
+                
+            <% end %>
+
+
+        <% elsif @event.asubscribe.to_s.include? current_ele.id.to_s %>
+            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+        <% elsif @event.asubscribe2.to_s.include? current_ele.id.to_s %>
+            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+        <% elsif @event.asubscribe3.to_s.include? current_ele.id.to_s %>
+            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+        <% elsif @event.asubscribe4.to_s.include? current_ele.id.to_s %>
+            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+        <% elsif @event.asubscribe5.to_s.include? current_ele.id.to_s %>
+            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+        <% elsif @event.asubscribe6.to_s.include? current_ele.id.to_s %>
+            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+        <% elsif @event.asubscribe7.to_s.include? current_ele.id.to_s %>
+            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+        <% elsif @event.asubscribe8.to_s.include? current_ele.id.to_s %>
+            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+        <% elsif @event.asubscribe9.to_s.include? current_ele.id.to_s %>
+            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+        <% elsif @event.asubscribe10.to_s.include? current_ele.id.to_s %>
+            <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
+
+        <% elsif ele_signed_in? %>
+            <% if @event.etat == "open" %>
+                <p class="text-center">  <%= link_to "Rejoindre l'événement", { :controller => "events", :action => "subscribe"}, class: "btn btn-success" %> </p>
+            <% else %>
+                <p class="text-center">  <%= link_to "Vous inscrire, payer et recevoir votre pass", { :controller => "events", :action => "subscribeandpay"}, class: "btn btn-success" %> </p>
+                <p> BOUTON PAYER ET SUBSCRIBE </p>
+            <% end %>
         <% else %>
-            <p> Le post de prof est occupé par : <%=@professor.email%></p>
+        <% end %>
+
+    <% elsif @event.etat == "close" %>
+    
+        <% if ele_signed_in? %>
+            <% if @event.asubscribe.to_s.include? current_ele.id.to_s %>
+            <%= form_tag pay_path do %>
+                <article>
+                <% if flash[:error].present? %>
+                    <div id="error_explanation">
+                    <p><%= flash[:error] %></p>
+                    </div>
+                <% end %>
+                <label class="amount">
+                    <span>Amount: $5.00</span>
+                </label>
+                </article>
             
+                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                        data-description="A month's subscription"
+                        data-amount="500"
+                        data-locale="auto"
+                        data-label="Confirmer payement et recevoir pass"></script>
+            
+                
+                
+                
+            <% end %>
+        
+            <% elsif @event.asubscribe2.to_s.include? current_ele.id.to_s %>
+                <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
+            <% elsif @event.asubscribe3.to_s.include? current_ele.id.to_s %>
+                <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p> 
+            <% elsif @event.asubscribe4.to_s.include? current_ele.id.to_s %>
+                <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
+            <% elsif @event.asubscribe5.to_s.include? current_ele.id.to_s %>
+                <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
+            <% elsif @event.asubscribe6.to_s.include? current_ele.id.to_s %>
+                <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
+            <% elsif @event.asubscribe7.to_s.include? current_ele.id.to_s %>
+                <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
+            <% elsif @event.asubscribe8.to_s.include? current_ele.id.to_s %>
+                <p class="text-center">  <%= link_to ", payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
+            <% elsif @event.asubscribe9.to_s.include? current_ele.id.to_s %>
+                <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
+            <% elsif @event.asubscribe10.to_s.include? current_ele.id.to_s %>
+                <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>        
+            <% elsif @event.asubscribe10 == nil %>
+                <p class="text-center">  <%= link_to "S'inscrire, payer et recevoir votre pass", { :controller => "events", :action => "subscribeandpay"}, class: "btn btn-success" %> </p>        
+            <% else %>
+                <p> Cet événement est complet </p>
+            <% end %>
+        <% else  %> 
         <% end %>
 
-
-    <% elsif @event.asubscribe.to_s.include? current_ele.id.to_s %>
-        <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-    <% elsif @event.asubscribe2.to_s.include? current_ele.id.to_s %>
-        <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-    <% elsif @event.asubscribe3.to_s.include? current_ele.id.to_s %>
-        <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-    <% elsif @event.asubscribe4.to_s.include? current_ele.id.to_s %>
-        <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-    <% elsif @event.asubscribe5.to_s.include? current_ele.id.to_s %>
-        <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-    <% elsif @event.asubscribe6.to_s.include? current_ele.id.to_s %>
-        <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-    <% elsif @event.asubscribe7.to_s.include? current_ele.id.to_s %>
-        <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-    <% elsif @event.asubscribe8.to_s.include? current_ele.id.to_s %>
-        <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-    <% elsif @event.asubscribe9.to_s.include? current_ele.id.to_s %>
-        <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-    <% elsif @event.asubscribe10.to_s.include? current_ele.id.to_s %>
-        <p> Vous avez déjà rejoint cet événement, vous recevrez un mail pour payer lorsque le prof aura valider cet event</p>
-
-    <% elsif ele_signed_in? %>
-        <% if @event.etat == "open" %>
-            <p class="text-center">  <%= link_to "Rejoindre l'événement", { :controller => "events", :action => "subscribe"}, class: "btn btn-success" %> </p>
-        <% else %>
-            <p class="text-center">  <%= link_to "Vous inscrire, payer et recevoir votre pass", { :controller => "events", :action => "subscribeandpay"}, class: "btn btn-success" %> </p>
-            <p> BOUTON PAYER ET SUBSCRIBE </p>
-        <% end %>
     <% else %>
     <% end %>
+    </br></br>
 
-<% elsif @event.etat == "close" %>
-   
-    <% if ele_signed_in? %>
-        <% if @event.asubscribe.to_s.include? current_ele.id.to_s %>
-        <%= form_tag pay_path do %>
-            <article>
-              <% if flash[:error].present? %>
-                <div id="error_explanation">
-                  <p><%= flash[:error] %></p>
-                </div>
-              <% end %>
-              <label class="amount">
-                <span>Amount: $5.00</span>
-              </label>
-            </article>
-          
-            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                    data-description="A month's subscription"
-                    data-amount="500"
-                    data-locale="auto"
-                    data-label="Confirmer payement et recevoir pass"></script>
-          
-            
-             
-             
-          <% end %>
-    
-        <% elsif @event.asubscribe2.to_s.include? current_ele.id.to_s %>
-            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
-        <% elsif @event.asubscribe3.to_s.include? current_ele.id.to_s %>
-            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p> 
-        <% elsif @event.asubscribe4.to_s.include? current_ele.id.to_s %>
-            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
-        <% elsif @event.asubscribe5.to_s.include? current_ele.id.to_s %>
-            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
-        <% elsif @event.asubscribe6.to_s.include? current_ele.id.to_s %>
-            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
-        <% elsif @event.asubscribe7.to_s.include? current_ele.id.to_s %>
-            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
-        <% elsif @event.asubscribe8.to_s.include? current_ele.id.to_s %>
-            <p class="text-center">  <%= link_to ", payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
-        <% elsif @event.asubscribe9.to_s.include? current_ele.id.to_s %>
-            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>
-        <% elsif @event.asubscribe10.to_s.include? current_ele.id.to_s %>
-            <p class="text-center">  <%= link_to " payer et recevoir votre pass", { :controller => "events", :action => "pay"}, class: "btn btn-success" %> </p>        
-        <% elsif @event.asubscribe10 == nil %>
-            <p class="text-center">  <%= link_to "S'inscrire, payer et recevoir votre pass", { :controller => "events", :action => "subscribeandpay"}, class: "btn btn-success" %> </p>        
-        <% else %>
-            <p> Cet événement est complet </p>
+    <h2>Gérant événement</h2>
+    <p><%=@creator.firstname%></p>
+    <p><%=@creator.email%></p></br></br>
+    <h1>professeur</h1>
+    <% if @event.professeur == "present" %>
+        <p>===============</p>
+        <p><%=@professor.firstname%></p></br></br>
+        <p><%=@professor.email%></p>
+    <% else %>
+    <p>Pas encore de prof, invitez-en ci-dessous</p>
+    <% end %> </br></br>
+
+
+
+
+    <h3>Les professeurs invités</h3>
+    <table class="table table-striped">
+        <tr>
+            <th>Nom</th>
+            <th>Email</th>
+        </tr>
+    <% @event.proinvitatees.each do |invitatee| %> 
+        <tr>
+            <td> <%= invitatee.firstname %> </td>
+            <td> <%= invitatee.email %> </td>
+        </tr>
+    <% end %> 
+    </table></br>
+
+
+    <% if signed_in? %>
+
+
+            <h3> Inviter des prof </h3>
+
+            <table class="table table-striped">
+                <tr>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+
+                <% @allpro.each do |pro| %> 
+                    <% unless @event.proinvitatees.include? pro %>
+                    <tr>
+                        <td><%= pro.firstname %></td>
+                        <td><%= pro.email %></td>
+                        
+                        <td><%= link_to "Inviter ce professeur", { :controller => "events", :action => "addprotoinvitation", :pro_id => pro.id, :test => @event.id}%></td>
+                    </tr>
+                    <% end %>
+                <% end %>
+            </table>
+
+    <% else %>
+        <p> Connectez-vous pour ajouter des participants </p>
+    <% end %></br></br>
+
+
+    <h1>Les élèves</h1>
+
+    <% if @event.etat == "open" %>
+
+        <h3>Participants </h3>
+        <table class="table table-striped">
+        <tr>
+            <th>Nom</th>
+            <th>Email</th>
+        </tr>
+        <% @event.eleattendees.each do |attendee| %> 
+            <% if @event.asubscribe.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe2.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe3.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe4.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe5.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe6.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe7.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe8.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe9.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe10.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% else %>
+            <% end %>
         <% end %>
-    <% else  %> 
+        </table> </br></br>
+
+    <% else %>
+
+        <h3>Participants définitifs </h3>
+        <table class="table table-striped">
+        <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Autorisé à participer?</th>
+        </tr>
+        <% @event.eleattendees.each do |attendee| %> 
+
+            <% if @event.asubscribe.to_s.include? attendee.id.to_s %>
+                <% if @event.apayer.to_s.include? attendee.id.to_s %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> A payé, a son pass </td>
+                    </tr>
+                <% else %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> en attente de paiement </td>
+                    </tr>
+                <% end %>
+            
+            <% elsif @event.asubscribe2.to_s.include? attendee.id.to_s %>
+                <% if @event.apayer2.to_s.include? attendee.id.to_s %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> A payé, a son pass </td>
+                    </tr>
+                <% else %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> en attente de paiement </td>
+                    </tr>
+                <% end %>
+            
+            <% elsif @event.asubscribe3.to_s.include? attendee.id.to_s %>
+                <% if @event.apayer3.to_s.include? attendee.id.to_s %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> A payé, a son pass </td>
+                    </tr>
+                <% else %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> en attente de paiement </td>
+                    </tr>
+                <% end %>
+            
+            <% elsif @event.asubscribe4.to_s.include? attendee.id.to_s %>
+                <% if @event.apayer4.to_s.include? attendee.id.to_s %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> A payé, a son pass </td>
+                    </tr>
+                <% else %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> en attente de paiement </td>
+                    </tr>
+                <% end %>
+            
+            <% elsif @event.asubscribe5.to_s.include? attendee.id.to_s %>
+                <% if @event.apayer5.to_s.include? attendee.id.to_s %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> A payé, a son pass </td>
+                    </tr>
+                <% else %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> en attente de paiement </td>
+                    </tr>
+                <% end %>
+            
+            <% elsif @event.asubscribe6.to_s.include? attendee.id.to_s %>
+                <% if @event.apayer6.to_s.include? attendee.id.to_s %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> A payé, a son pass </td>
+                    </tr>
+                <% else %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> en attente de paiement </td>
+                    </tr>
+                <% end %>
+            
+            <% elsif @event.asubscribe7.to_s.include? attendee.id.to_s %>
+                <% if @event.apayer7.to_s.include? attendee.id.to_s %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> A payé, a son pass </td>
+                    </tr>
+                <% else %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> en attente de paiement </td>
+                    </tr>
+                <% end %>
+
+            <% elsif @event.asubscribe8.to_s.include? attendee.id.to_s %>
+                <% if @event.apayer8.to_s.include? attendee.id.to_s %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> A payé, a son pass </td>
+                    </tr>
+                <% else %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> en attente de paiement </td>
+                    </tr>
+                <% end %>
+            
+            <% elsif @event.asubscribe9.to_s.include? attendee.id.to_s %>
+                <% if @event.apayer9.to_s.include? attendee.id.to_s %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> A payé, a son pass </td>
+                    </tr>
+                <% else %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> en attente de paiement </td>
+                    </tr>
+                <% end %>
+            
+            <% elsif @event.asubscribe10.to_s.include? attendee.id.to_s %>
+                <% if @event.apayer10.to_s.include? attendee.id.to_s %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> A payé, a son pass </td>
+                    </tr>
+                <% else %>
+                    <tr>
+                    <td> <%= attendee.firstname %> </td>
+                    <td> <%= attendee.email %> </td>
+                    <td> en attente de paiement </td>
+                    </tr>
+                <% end %>
+            <% else %>
+            <% end %>
+        <% end %>
+        </table> </br></br>
+
+        <h3>Participants en attente de paiement </h3>
+        <table class="table table-striped">
+        <tr>
+            <th>Nom</th>
+            <th>Email</th>
+        </tr>
+        <% @event.eleattendees.each do |attendee| %> 
+            <% if @event.asubscribe.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe2.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe3.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe4.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe5.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe6.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe7.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe8.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe9.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% elsif @event.asubscribe10.to_s.include? attendee.id.to_s %> 
+            <tr>
+            <td> <%= attendee.firstname %> </td>
+            <td> <%= attendee.email %> </td>
+            </tr>
+            <% else %>
+            <% end %>
+        <% end %>
+        </table> </br></br>
+
     <% end %>
 
-<% else %>
-<% end %>
-</br></br>
-
-<h2>Gérant événement</h2>
-<p><%=@creator.firstname%></p>
-<p><%=@creator.email%></p></br></br>
-<h1>professeur</h1>
-<% if @event.professeur == "present" %>
-    <p>===============</p>
-    <p><%=@professor.firstname%></p></br></br>
-    <p><%=@professor.email%></p>
-<% else %>
-<p>Pas encore de prof, invitez-en ci-dessous</p>
-<% end %> </br></br>
-
-
-
-
-<h3>Les professeurs invités</h3>
-<table class="table table-striped">
+    <h3>Invités </h3>
+    <table class="table table-striped">
     <tr>
         <th>Nom</th>
         <th>Email</th>
     </tr>
-<% @event.proinvitatees.each do |invitatee| %> 
-    <tr>
+    <% @event.eleinvitatees.each do |invitatee| %> 
+        <% if @event.asubscribe.to_s.include? invitatee.id.to_s %> 
+        <% else %>
+        <tr>
         <td> <%= invitatee.firstname %> </td>
         <td> <%= invitatee.email %> </td>
-    </tr>
-<% end %> 
-</table></br>
+        </tr>
+        <% end %>
+    <% end %>
+    </table> </br></br>
 
 
-<% if signed_in? %>
+    <% if signed_in? %>
+    
+            <h3> Inviter des élèves </h3>
 
-
-        <h3> Inviter des prof </h3>
-
-        <table class="table table-striped">
-            <tr>
-                <th>Nom</th>
-                <th>Email</th>
-                <th></th>
-                <th></th>
-            </tr>
-
-
-            <% @allpro.each do |pro| %> 
-                <% unless @event.proinvitatees.include? pro %>
+            <table class="table table-striped">
                 <tr>
-                    <td><%= pro.firstname %></td>
-                    <td><%= pro.email %></td>
-                    
-                    <td><%= link_to "Inviter ce professeur", { :controller => "events", :action => "addprotoinvitation", :pro_id => pro.id, :test => @event.id}%></td>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th></th>
+                    <th></th>
                 </tr>
+
+
+                <% @allele.each do |ele| %> 
+                    <% unless @event.eleattendees.include? ele %>
+                    <tr>
+                        <td><%= ele.firstname %></td>
+                        <td><%= ele.email %></td>
+                        
+                        <td><%= link_to "Inviter cet élève", { :controller => "events", :action => "addeletoinvitation", :ele_id => ele.id, :test => @event.id}%></td>
+                    </tr>
+                    <% end %>
                 <% end %>
-            <% end %>
-        </table>
-
-<% else %>
-    <p> Connectez-vous pour ajouter des participants </p>
-<% end %></br></br>
-
-
-<h1>Les élèves</h1>
-
-<% if @event.etat == "open" %>
-
-    <h3>Participants </h3>
-    <table class="table table-striped">
-    <tr>
-        <th>Nom</th>
-        <th>Email</th>
-    </tr>
-    <% @event.eleattendees.each do |attendee| %> 
-        <% if @event.asubscribe.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe2.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe3.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe4.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe5.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe6.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe7.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe8.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe9.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe10.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% else %>
-        <% end %>
-    <% end %>
-    </table> </br></br>
-
-<% else %>
-
-    <h3>Participants définitifs </h3>
-    <table class="table table-striped">
-    <tr>
-        <th>Nom</th>
-        <th>Email</th>
-        <th>Autorisé à participer?</th>
-    </tr>
-    <% @event.eleattendees.each do |attendee| %> 
-
-        <% if @event.asubscribe.to_s.include? attendee.id.to_s %>
-            <% if @event.apayer.to_s.include? attendee.id.to_s %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> A payé, a son pass </td>
-                </tr>
-            <% else %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> en attente de paiement </td>
-                </tr>
-            <% end %>
-        
-        <% elsif @event.asubscribe2.to_s.include? attendee.id.to_s %>
-            <% if @event.apayer2.to_s.include? attendee.id.to_s %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> A payé, a son pass </td>
-                </tr>
-            <% else %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> en attente de paiement </td>
-                </tr>
-            <% end %>
-        
-        <% elsif @event.asubscribe3.to_s.include? attendee.id.to_s %>
-            <% if @event.apayer3.to_s.include? attendee.id.to_s %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> A payé, a son pass </td>
-                </tr>
-            <% else %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> en attente de paiement </td>
-                </tr>
-            <% end %>
-        
-        <% elsif @event.asubscribe4.to_s.include? attendee.id.to_s %>
-            <% if @event.apayer4.to_s.include? attendee.id.to_s %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> A payé, a son pass </td>
-                </tr>
-            <% else %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> en attente de paiement </td>
-                </tr>
-            <% end %>
-        
-        <% elsif @event.asubscribe5.to_s.include? attendee.id.to_s %>
-            <% if @event.apayer5.to_s.include? attendee.id.to_s %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> A payé, a son pass </td>
-                </tr>
-            <% else %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> en attente de paiement </td>
-                </tr>
-            <% end %>
-        
-        <% elsif @event.asubscribe6.to_s.include? attendee.id.to_s %>
-            <% if @event.apayer6.to_s.include? attendee.id.to_s %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> A payé, a son pass </td>
-                </tr>
-            <% else %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> en attente de paiement </td>
-                </tr>
-            <% end %>
-        
-        <% elsif @event.asubscribe7.to_s.include? attendee.id.to_s %>
-            <% if @event.apayer7.to_s.include? attendee.id.to_s %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> A payé, a son pass </td>
-                </tr>
-            <% else %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> en attente de paiement </td>
-                </tr>
-            <% end %>
-
-        <% elsif @event.asubscribe8.to_s.include? attendee.id.to_s %>
-            <% if @event.apayer8.to_s.include? attendee.id.to_s %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> A payé, a son pass </td>
-                </tr>
-            <% else %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> en attente de paiement </td>
-                </tr>
-            <% end %>
-        
-        <% elsif @event.asubscribe9.to_s.include? attendee.id.to_s %>
-            <% if @event.apayer9.to_s.include? attendee.id.to_s %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> A payé, a son pass </td>
-                </tr>
-            <% else %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> en attente de paiement </td>
-                </tr>
-            <% end %>
-        
-        <% elsif @event.asubscribe10.to_s.include? attendee.id.to_s %>
-            <% if @event.apayer10.to_s.include? attendee.id.to_s %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> A payé, a son pass </td>
-                </tr>
-            <% else %>
-                <tr>
-                <td> <%= attendee.firstname %> </td>
-                <td> <%= attendee.email %> </td>
-                <td> en attente de paiement </td>
-                </tr>
-            <% end %>
-        <% else %>
-        <% end %>
-    <% end %>
-    </table> </br></br>
-
-    <h3>Participants en attente de paiement </h3>
-    <table class="table table-striped">
-    <tr>
-        <th>Nom</th>
-        <th>Email</th>
-    </tr>
-    <% @event.eleattendees.each do |attendee| %> 
-        <% if @event.asubscribe.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe2.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe3.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe4.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe5.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe6.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe7.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe8.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe9.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% elsif @event.asubscribe10.to_s.include? attendee.id.to_s %> 
-        <tr>
-        <td> <%= attendee.firstname %> </td>
-        <td> <%= attendee.email %> </td>
-        </tr>
-        <% else %>
-        <% end %>
-    <% end %>
-    </table> </br></br>
-
-<% end %>
-
-<h3>Invités </h3>
-<table class="table table-striped">
-<tr>
-    <th>Nom</th>
-    <th>Email</th>
-</tr>
-<% @event.eleinvitatees.each do |invitatee| %> 
-    <% if @event.asubscribe.to_s.include? invitatee.id.to_s %> 
+            </table>
     <% else %>
-    <tr>
-    <td> <%= invitatee.firstname %> </td>
-    <td> <%= invitatee.email %> </td>
-    </tr>
-    <% end %>
-<% end %>
-</table> </br></br>
-
-
-<% if signed_in? %>
- 
-        <h3> Inviter des élèves </h3>
-
-        <table class="table table-striped">
-            <tr>
-                <th>Nom</th>
-                <th>Email</th>
-                <th></th>
-                <th></th>
-            </tr>
-
-
-            <% @allele.each do |ele| %> 
-                <% unless @event.eleattendees.include? ele %>
-                <tr>
-                    <td><%= ele.firstname %></td>
-                    <td><%= ele.email %></td>
-                    
-                    <td><%= link_to "Inviter cet élève", { :controller => "events", :action => "addeletoinvitation", :ele_id => ele.id, :test => @event.id}%></td>
-                </tr>
-                <% end %>
-            <% end %>
-        </table>
-<% else %>
-        <p> Connectez-vous pour ajouter des participants </p>
-<% end %></br></br>
+            <p> Connectez-vous pour ajouter des participants </p>
+    <% end %></br></br>
 
 
 
-#   add_pro à faire (controller, vues, routes,   pareil pour subscribe (vues et routes))
+    #   add_pro à faire (controller, vues, routes,   pareil pour subscribe (vues et routes))
 
 
 
 
 
-</br></br>
+    </br></br>
 
 
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+    <%= link_to 'Edit', edit_event_path(@event) %> |
+    <%= link_to 'Back', events_path %>
+</div>
